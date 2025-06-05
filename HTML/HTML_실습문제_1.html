@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 실습문제 1</title>
+
+    <!-- <style>
+        textarea {
+            text-align: left;
+        }
+    </style> -->
+</head>
+<body>
+    <form action="">
+        <fieldset>
+            <legend>회원가입 동의서</legend>
+            이용약관 동의(필수) <br>
+            <textarea name="tos" id="" cols="50" rows="10" style="resize:none">여러분을 환영합니다. 어쩌구 저쩌구.</textarea>
+            <br>
+            <input type="radio" name="tos" id="" value="tos-agree">동의합니다.
+            <input type="radio" name="tos" id="" value="tos-disagree">동의하지 않습니다.
+            <br><br>
+            개인정보 수집 및 이용 동의(필수) <br>
+            <textarea name="info-collection" id="" cols="50" rows="10" style="resize:none">개인정보보호법 어쩌구 저쩌구.</textarea>
+            <br>
+            <input type="radio" name="info-collection" id="" value="info-collect-agree">동의합니다.
+            <input type="radio" name="info-collection" id="" value="info-collect-disagree">동의하지 않습니다.
+            <br><br>
+            <input type="checkbox" name="agree-all" id=""> 모두 동의합니다.
+            <br><br>
+            <input type="submit" value="취소">
+            <input type="submit" value="확인">
+        </fieldset>
+    </form>
+
+    <br><br><br>
+
+    <form action="">
+        <fieldset>
+            <legend>회원가입 양식</legend>
+            * 아이디 <br>
+            <input type="text" placeholder="영문 소문자, 숫자, 특수기호(_, -) 5~20"
+            size="35" required minlength="5" maxlength="20">
+            <input type="button" value="아이디 중복 확인">
+            <br><br>
+            * 비밀번호 <br>
+            <input type="text" placeholder="영문, 숫자, 특수문자 8~15" size="35" required
+            minlength="8" maxlength="15">
+            <br><br>
+            * 비밀번호 재확인 <br>
+            <input type="text" placeholder="영문, 숫자, 특수문자 8~15" size="35" required
+            minlength="8" maxlength="15">
+            <br><br>
+            * 이름 <br>
+            <input type="text" size="35" required>
+            <br><br>
+            * 주민등록번호 <br>
+            <input type="text" size="13" required> - <input type="text" size="15" required>
+            <br><br>
+            * 성별 <br>
+            <input type="radio" name="gender" id="" required> 선택안함
+            <input type="radio" name="gender" id="" required> 남자
+            <input type="radio" name="gender" id="" required> 여자
+            <br><br>
+            * 생년월일 <br>
+            <input type="date" name="date" id="" required>
+            <br><br>
+            주소 <br>
+            <input type="text" size="35">
+            <br><br>
+            우편번호 <br>
+            <input type="text">
+            <input type="button" value="우편번호찾기">
+            <input type="checkbox" name="mail-agree" id="">우편 수신 동의
+            <br><br>
+            이메일 <br>
+            <input type="text" size="35">
+            <input type="checkbox" name="email-agree" id="">이메일 수신 동의
+            <br><br>
+            휴대폰번호 <br>
+            <select name="phone-start-number" id="">
+                <option value="">010</option>
+                <option value="">011</option>
+            </select>
+            - <input type="text" size="5">
+            - <input type="text" size="5">
+            <input type="checkbox" name="msg-agree" id="">문자 수신 동의
+            <br><br>
+            <input type="button" value="초기화">
+            <input type="button" value="가입하기">
+        </fieldset>
+    </form>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
