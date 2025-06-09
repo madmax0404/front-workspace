@@ -1,0 +1,62 @@
+/* 
+    일반 구조 선택자
+
+    first-child: 형제관계의 요소 중 첫 번째 요소를 선택
+*/
+#test1>:first-child {
+    background-color: red;
+    color: white;
+}
+
+/* last-child: 형제 관계 요소 중 마지막 요소를 선택 */
+#test1>:last-child {
+    background-color: orange;
+    color: white;
+    /* 
+        #test1의 자식중 마지막 요소는 pre 태그이기 때문에 선택 불가.
+     */
+}
+
+/* nth-child(수열) */
+#test1>:nth-child(2) {
+    background-color: cadetblue;
+}
+
+/* 홀수 번째 형제요소 */
+#test1>p:nth-child(odd) {
+    background-color: pink;
+}
+
+/* 짝수 번째 형제요소 */
+#test1>p:nth-child(2n) {
+    border: 1px solid black;
+}
+/* #test1>p:nth-child(even) {
+    border: 1px solid black;
+} */
+
+/*
+    형태 구조 선택자
+    :first-of-type: 같이 선택된 형제들 기준 첫 번째 요소.
+*/
+#test2>p:first-of-type {
+    background-color: orange;
+}
+
+/* :last-of-type: 함께 선택된 형제 요소 기준 마지막 요소. */
+#test2>p:last-of-type {
+    background-color: skyblue;
+}
+
+#test2>p:nth-of-type(odd) {
+    font-size: 30px;
+}
+
+#test2>p:nth-last-of-type(even) {
+    background-color: pink;
+}
+
+/* 부정선택자 :not(선택자) */
+#test3>li:not(li:nth-child(3n)) {
+    background-color: pink;
+}
