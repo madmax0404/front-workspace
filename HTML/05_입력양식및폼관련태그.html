@@ -182,6 +182,42 @@
         <br><br>
         <input type="submit" value="제출">
     </form>
+
+    <br>
+    <hr>
+    <!--
+        form 태그 내부에 전송할 값이 file인 경우 사용하는 속성.
+    -->
+
+    <form enctype="multipart/form-data">
+        <h3>type="file"</h3>
+        <p>
+            <ul>
+                <li>첨부할 파일을 선택할 수 있는 input 태그</li>
+                파일선택: <input type="file" name="file" id="upload" multiple>
+            </ul>
+        </p>
+        <h3>type="hidden"</h3>
+        <p>
+            <ul>
+                <li>특정값을 사용자에게 입력받지 않고 화면에 노출시키지도 않고 넘기고자 하는 경우 사용하는 input 태그</li>
+                안보임: <input type="hidden" name="hidden" value="바보">
+            </ul>
+        </p>
+        <h3>type="submit/button/reset"</h3>
+        <input type="submit">
+        <input type="button" value="버튼">
+        <input type="reset" value="초기화"> <!-- 입력값들을(예: 파일 업로드) 초기화 시키는 버튼 -->
+        <br><br>
+
+        <h3>button type="submit/button/reset</h3>
+        <button type="submit">제출</button>
+        <button type="button">버튼</button>
+        <button type="reset">초기화</button>
+
+        <br><br>
+        <input type="submit" value="제출">
+    </form>
     
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
