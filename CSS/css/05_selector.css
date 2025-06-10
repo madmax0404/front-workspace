@@ -1,0 +1,18 @@
+/* 5순위 태그선택자 */
+div{
+    width: 200px;
+    height: 200px;
+    background-color: pink !important;
+}
+/* 4순위 클래스 선택자*/
+.cls1{
+    background-color: greenyellow;
+}
+/* 3순위 아이디 선택자*/
+#test1{
+    height: 100px;
+    background-color: aqua;
+}
+/* 2순위 인라인스타일 속성*/
+
+/* 1순위 !important;*/
