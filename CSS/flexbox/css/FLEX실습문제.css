@@ -1,0 +1,36 @@
+/* .header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    height: 70px;
+    align-content: center;
+    border: 1px solid grey;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 150px;
+}
+
+.menu>span {
+    background-color: gainsboro;
+}
+
+.main {
+    height: 100px;
+    width: 400px;
+    display: flex;
+    flex: wrap;
+
+    align-content: space-evenly;
+} */

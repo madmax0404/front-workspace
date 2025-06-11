@@ -1,0 +1,102 @@
+img {
+    width: 250px;
+}
+
+/*  */
+.trans-x-2d:hover {
+    transform: translateX(400px);
+}
+
+/*  */
+.trans-y-2d:hover {
+    transform: translateY(-100px);
+}
+
+.trans-d-2d:hover {
+    transform: translate(100px, 100px);
+}
+
+.trans-x-scale-2d:hover {
+    transform: scaleX(2);
+}
+
+.trans-y-scale-2d:hover {
+    transform: scaleY(2);
+}
+
+.trans-scale-2d:hover {
+    transform: scale(2, 2);
+}
+
+.trans-rotate:hover {
+    transform: rotate(90deg);
+}
+
+.trans-3d:hover {
+    transform: perspective(300px) translate3d(50px, 50px, 250px);
+}
+
+.trans-rotate-x-3d:hover {
+    transform: perspective(300px) rotateX(45deg);
+}
+
+.trans-rotate-y-3d:hover {
+    transform: perspective(300px) rotateY(45deg);
+}
+
+.trans-rotate-z-3d:hover {
+    transform: perspective(300px) rotateZ(45deg);
+}
+
+.trans-rotate-3d:hover {
+    transform: perspective(300px) rotate3d(0.5, 0.5, 1, 45deg)
+    /* 
+        rotate3d(x, y, z, angle)
+        x, y, z는 0~1 사이의 숫자
+    */
+}
+
+/* transition */
+.box {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    background-color: red;
+
+    transition: 1s;
+}
+
+.test1:hover {
+    background-color: yellow;
+}
+
+.test2 {
+    transition-duration: 3s;
+}
+
+.test2:hover {
+    transform: rotate(360deg);
+    background-color: pink;
+    border-radius: 50%;
+}
+
+.test3 {
+    transition-duration: 3s;
+    transition-timing-function: cubic-bezier(1, -1, 1, -1);
+}
+
+.test3:hover {
+    background-color: springgreen;
+    transform: rotate(720deg);
+}
+
+.test4 {
+    transition-delay: 1s;
+    transition-property: transform;
+}
+
+.test4:hover {
+    background-color: yellow;
+    transform: translateX(100px);
+    /* transition-delay: 1s; */
+}

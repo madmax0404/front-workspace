@@ -1,0 +1,124 @@
+/* .main {
+    display: flex;
+    width: ;
+} */
+
+.page-head {
+    height: 120px;
+    /* width: 100%; */
+    min-width: 300px;
+    background-color: royalblue;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+#page-title {
+    color: white;
+}
+
+#search-bar {
+    width: 50vw;
+    height: 20px;
+    max-width: 600px;
+    min-width: 200px;
+    border: none;
+    border-radius: 3px ;
+    /* border: 5px snow */
+}
+
+#search-button {
+    background-color: rgba(84, 94, 94, 0.897);
+    color: white;
+    height: 25px;
+    border: none;
+    border-radius: 3px;
+}
+
+.page-content {
+    min-height: 500px;
+    background-color: #f1f0f0;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    /* align-items: baseline; */
+    justify-content: space-between;
+}
+
+#product-title {
+    padding-bottom: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 60vw;
+
+    min-width: 300px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-left: 5vw;
+}
+
+#product-list {
+    width: 60vw;
+    height: 550px;
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-left: 5vw;
+
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.product {
+    width: 150px;
+    height: 200px;
+    background-color: white;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    text-align: center;
+
+    box-shadow: 2px 2px 0 rgba(84, 94, 94, 0.1),
+                -2px -2px 0 rgba(84, 94, 94, 0.1);
+}
+
+.product>img {
+    width: 100%;
+}
+
+.damgi {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px
+}
+
+#shopping-list {
+    width: 25vw;
+    height: 600px;
+    background-color: white;
+    text-align: center;
+    box-shadow: 2px 2px 0 rgba(84, 94, 94, 0.1),
+                -2px -2px 0 rgba(84, 94, 94, 0.1);
+}
+
+.page-tail {
+    background-color: black;
+    height: 60px;
+    color: white;
+    text-align: center;
+    align-content: center;
+}

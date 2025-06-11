@@ -1,0 +1,88 @@
+/* 기본 설정 */
+body {
+  margin: 0;
+}
+
+.wrapper {  
+  min-height: 100vh;
+  border: 2px solid #333;
+  background-color: #1a1a1a;
+}
+
+/* 헤더와 푸터 */
+.header,
+.footer {
+  background-color: #222;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #444;
+}
+
+
+.content {
+  display: flex;
+  /* border: 2px solid grey; */
+}
+
+/* 사이드바 
+   직접 작성해보기
+*/
+.sidebar {
+  width: 220px;
+  background-color: cornsilk;
+  border: 2px solid grey;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  width: 100%;
+  height: 300px;
+  align-content: space-between;
+  /* border: 1px solid black; */
+  box-sizing: border-box;
+  padding: 10px;
+  align-items: center;
+}
+
+.menu>span {
+  background-color: aliceblue;
+  margin: 5px;
+  height: 50px;
+  width: 180px;
+  align-content: center;
+  padding-left: 10px;
+  border: 1px solid #bbb;
+}
+
+
+/* 메인 게시글 영역 
+*/
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-evenly;
+  box-sizing: border-box;
+  gap: 10px;
+  padding: 10px;
+  background-color: lightcyan;
+  border: 2px solid grey;
+}
+
+/* 카드 스타일
+  팽창 정도 1
+  수축 정도 1
+  크기 30% 
+*/
+.card {
+  flex: 1 1 30%;
+  min-width: 200px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 2px solid #bbb;
+  text-align: center;
+  /* margin: 15px; */
+}

@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Kablammo&display=swap');
+
+#size-test>:nth-child(1) {font-size: 24px;}
+#size-test>:nth-child(2) {font-size: 18pt;}
+#size-test>:nth-child(3) {font-size: 150%;}
+#size-test>:nth-child(4) {font-size: 1.5em;}
+
+#weight-test>li {font-size: 34px;}
+#weight-test>li:nth-child(1) {font-weight: 400;}
+#weight-test>li:nth-child(2) {font-weight: bold;}
+#weight-test>li:nth-child(3) {font-weight: 900;}
+#weight-test>li:nth-child(4) {font-weight: bolder;}
+#weight-test>li:nth-child(5) {font-weight: lighter;}
+
+.cls>li{font-size: 24px;}
+#family-test>li:nth-child(1) {
+    font-family: '궁서';
+}
+#family-test>li:nth-child(2) {
+    font-family: '재명체';
+}
+#family-test>li:nth-child(3) {
+    font-family: '재명체', '문수체', '굴림체', '궁서체';
+}
+
+/* HTML로 link 태그를 이용해 웹폰트 추가 */
+#family-test2>:nth-child(1) {
+    font-family: "Edu VIC WA NT Hand Pre", cursive;
+}
+
+/* import로 웹폰트 추가 */
+#family-test2>:nth-child(2) {
+    font-family: "Kablammo", system-ui;
+}
+
+#family-test2>:nth-child(3) {
+    font-family: "Audiowide", sans-serif;
+}
