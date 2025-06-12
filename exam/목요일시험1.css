@@ -1,0 +1,74 @@
+.div-1-1 {
+    /* border: 1px solid black; */
+    display: flex;
+}
+
+.subtitle {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    align-items: center;
+    /* align-content: space-between; */
+}
+.subtitle-1 {
+    flex: 0 0 15%;
+    /* margin: 5; */
+    /* height: 15px; */
+}
+.subtitle-2 {
+    flex: 0 0 73%;
+    /* height: 50px; */
+    align-content: center;
+}
+.subtitle-3 {
+    flex: 0 0 15%;
+    /* height: 15px; */
+}
+
+.subcontent {
+    margin-left: 10px;
+}
+.subcontent-1 {
+    flex: 0 0 15%;
+}
+.subcontent-2 {
+    flex: 0 0 70%;
+    margin-top: 5px;
+    /* border: 1px solid black; */
+}
+.subcontent-3 {
+    flex: 0 0 15%;
+}
+
+/* .div-0-0 {
+    display: flex;
+    align-items: ;
+} */
+
+.div-1-0 {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.div-1-submit {
+    display: flex;
+    /* align-items: center; */
+    /* align-content: center; */
+    /* justify-content: center; */
+    margin-left: 150px;
+}
+
+table>thead {
+    background-color: darkorange;
+    color: white;
+}
+
+table>tbody {
+    background-color: beige;
+}
+
+table>tfoot {
+    background-color: darkorange;
+    color: white;
+}
