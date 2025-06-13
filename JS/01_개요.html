@@ -47,6 +47,65 @@
         </li>
     </ol>
 
+    <button id="btn">콘솔창 출력</button>
+    <script>
+        // 내부방식만으로 요소에 이벤트 부여하기
+        // 어떤 요소에 어떤 이벤트가 발생할지를 정하고
+        // 그 이벤트가 실행될 때의 동작을 정의.
+        document.querySelector("#btn").onclick = function () {
+            console.log('Hi, Omnis!');
+        }
+    </script>
+
+    <h2>2. 자바스크립트의 자료형</h2>
+    <button onclick="dataType();">자료형</button>
+
+    <script>
+        function dataType() {
+            // 변수 선언시 사용되는 키워드
+            // 1. var(es5)
+            // 2, 3. let, const(es6)
+            var i; // undefined
+            console.log(i, typeof i);
+
+            // 값 대입이 이루어질 때 변수의 타입이 결정된다.
+            i = 100;
+            i = 1.23;
+            console.log(i, typeof i);
+
+            i = 'js is fun';
+            console.log(i, typeof i);
+
+            i = true;
+            console.log(i, typeof i);
+
+            // 자바스크립트에서는 function도 자료형으로, 값처럼 취급된다.
+            i = function(x, y) {
+                return x + y;
+            };
+            console.log(i, typeof i, i(1, 2));
+
+            // 객체 자료형
+            // 배열도 하나의 객체(object)
+            i = [1, 2, 3, 4];
+            console.log(i, typeof i);
+            i.push(1);
+            console.log(i);
+
+            // Map<String|Number, Object>
+            i = {
+                name: '치킨',
+                taste: '후라이드',
+                price: 19000
+            }
+            console.log(i, typeof i);
+
+            // null, null
+            i = null; // object 자료형
+            console.log(i, typeof i);
+        }
+    </script>
+
     <script src="./js/sample.js"></script>
     <script>
         // 선언형 함수
