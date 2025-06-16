@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Object</title>
+</head>
+
+<body>
+    <h1>Object</h1>
+
+    <h2>객체 생성</h2>
+    <input type="button" value="실행" onclick="test1();">
+
+    <br><br>
+    <hr>
+
+    <h2>메서드</h2>
+    <input type="button" value="실행" onclick="test2();">
+
+    <br><br>
+    <hr>
+
+    <h2>속성 순회 | 동적 제어</h2>
+    <input type="button" value="실행" onclick="test3();">
+    <input type="button" value="게임종료" onclick="test4();">
+    <input type="button" value="동적제어" onclick="test5();">
+    <input type="button" value="toString" onclick="test6();">
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+<script>
+    /*
+        {속성명: 속성값}으로 구성된 요소를 관리하는 객체
+        - 속성명: 식별자의 역할을 하며 문자열 혹은 정수값으로 작성 가능.
+        - 속성값: 모든 타입 가능.
+    */
+    function test1() {
+        console.clear();
+        const obj1 = {
+            name: "홍길동",
+            "age": 33,
+            married: true,
+            hobby: ["축구", "농구", "야구"],
+            pet: {
+                name: "둘리",
+                breed: "공룡",
+            },
+            123: 456,
+            "foo-bar": '하이',
+        }
+
+        console.log(obj1);
+
+        const obj2 = new Object(); // {}
+        obj2.pname = '말린 망고'; // {pname: '말린 망고'}
+        obj2.price = 3000;
+        // 객체 내부 속성에 접근하는 방법
+        // 1) 점 표기법(dot notation)
+        // 2) 대괄호 표기법(bracket notation)
+        // - 리터럴값 혹은 저장한 변수를 제시
+        obj2["origin"] = "필리핀";
+        obj2["ty-pe"] = "건망고"; // 특수문자 혹은 띄어쓰기가 포함된 경우 반드시 대괄호 표기법 사용
+
+        console.log(obj2);
+        console.log(obj2["ty-pe"]);
+    }
+
+    function test2() {
+        // 자바에서는 클래스 안에 선언한 함수
+        // JavaScript에서는 객체안에 선언한 함수를 메서드라고 부름.
+        const pet = {
+            petName: '둘리',
+            eat: function (food) {
+                console.log(this.petName + "가 " + food + "를 맛있게 먹는다.");
+                // 객체의 메서드에서 this는 메서드를 호출한 객체의 주소값이 담겨있다.
+            }
+        };
+
+        pet.eat("과자");
+    }
+    
+    let game;
+    function test3() {
+        console.clear();
+
+        game = {
+            title: "Baldur's Gate 3",
+            price: 35000,
+            lang: ["ko", "en", "cn"],
+            run: function() {
+                console.log(this.title + "을(를) 실행합니다...");
+                // 시작시간 기록
+                this["start-time"] = new Date();
+            },
+            shutdown: function() {
+                console.log(this.title + "을(를) 종료합니다...");
+                // 종료시간 기록
+                this["end-time"] = new Date();
+            },
+            duration: function() {
+                let dur = (this["end-time"] - this["start-time"]) / 1000 / 60; // 분단위
+                dur = Math.floor(dur * 10) / 10;
+                console.log(dur + "분 동안 게임하셨네요.");
+            }
+        };
+
+        // 객체 반복문 돌리기
+        for (let key in game) {
+            console.log("key: " + key);
+            console.log("value: " + game[key]);
+        }
+        
+        game.run();
+    }
+
+    function test4() {
+        console.clear();
+        game && game.shutdown();
+    }
+</script>
+
+</html>
