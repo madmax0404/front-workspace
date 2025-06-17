@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window</title>
+    <style>
+        #clock {
+            font-size : 3em;
+            text-shadow : 3px 3px 7px #000;
+        }
+        #countdown {
+            border: 3px solid #000;
+            font-size : 30em;
+            padding: 10px;
+            text-align : center;
+            display : none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Window</h1>
+    <h2>웹페이지 구조</h2>
+    <img src="/resources/image/window.png" alt="">
+    <h2>Method</h2>
+    <input type="button" value="open" onclick="test1();">
+    <input type="button" value="popup 닫기" onclick="test2();">
+    <input type="button" value="setTimeout" onclick="test3();">
+    <input type="button" value="실습문제" onclick="test4();">
+    <input type="button" value="clearTimeout" onclick="test5();">
+    <input type="button" value="setInterval" onclick="test6();">
+    <input type="button" value="실습문제" onclick="test7();">
+    <hr>
+    <div id="clock"></div>
+    <div id="countdown"></div>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+<script>
+    /*
+        window
+        - 웹 브라우저에 의해 탭마다 하나씩 생성되는 객체.
+        - 웹 브라우저상의 최상위 객체.
+        - 단, JavaScript 를 실행하는 환경에 따라 존재하지 않을 수도 있다.
+        - 브라우저와 관련된 다양한 기능을 제공.
+
+        open(): 새창열기(새로운 window생성)
+        - 새 탭으로 열기
+        - 팝업창 형태로 열기
+
+        open(url, name, specs)
+        - name: 팝업창의 이름.
+        - specs: 문자열 형태로 새탭의 창크기, 상태표시줄여부, 위치 등을 지정.
+    */
+    let window2;
+
+    function test1() {
+        window2 = open("08_함수.html", "_self2", "width=800, height=500, top=300, left=300");
+
+        // window.alert("1");
+    }
+
+    function test2() {
+        window2 && window2.close(); // 윈도우를 닫는 메서드.
+    }
+
+    function test3() {
+        console.clear();
+        /*
+            setTimeout(callbackFunction, mills);
+        */
+        console.log('111111');
+        setTimeout(function() {
+            console.log("hi, omnis");
+            alert("hi, omnis");
+        }, 3000);
+        console.log('222222');
+
+        // setTimeout(() => {
+        //     window2.alert("hi, omnis");
+        // }, 3000);
+    }
+
+    function test4() {
+        console.clear();
+        var i = 1;
+        console.log(1, i++); // 1
+        test(i); // 2
+        setTimeout(function() {
+            console.log(2, i++);
+        });
+        console.log(3, i);
+    }
+
+    function test5() {
+        // clearTimeout: queue에 저장된 timeout 함수를 제거해주는 함수
+        const timeId = setTimeout(function() {
+            console.log("1초 후에 실행하기");
+            // console.log(timeId);
+        }, 1000);
+
+        // console.log(timeId);
+
+        clearTimeout(timeId);
+    }
+
+    function test(i) {
+        console.log(i--);
+    }
+
+    function test6() {
+        console.clear();
+        /*
+            setInterval(callbackfn, mills)
+            - millis초 마다 callbackfn을 실행하는 함수.
+            - setTimeout과 동일한 비동기 함수.
+        */
+        // var num = 1;
+        // setInterval(function() {
+        //     console.log(num++);
+        // }, 1000);
+        function foo() {
+            const now = new Date();
+            const strFormat = getTimeFormat(now);
+
+            document.querySelector("#clock").innerHTML = strFormat;
+        }
+
+        // 00:00:00
+        function getTimeFormat(time) {
+            var hh = format(time.getHours());
+            var mm = format(time.getMinutes());
+            var ss = format(time.getSeconds());
+
+            function format(n) {
+                return n < 10 ? "0" + n : n;
+            }
+
+            return [hh, mm, ss].join(":");
+        }
+
+        setInterval(foo, 1000);
+    }
+
+    function test7() {
+        /*
+            실습문제
+            버튼클릭시 카운트다운하는 함수 만들기
+            10, 9 , 8, 7, 6, 5,... 1..
+            0도달시 카운트다운 종료.
+        */
+        // document.querySelector("#countdown").innerHTML = "10";
+        let countdownElement = document.querySelector("#countdown");
+        let count = 10;
+        
+        function countdown() {
+            countdownElement.style.display = "block";
+            countdownElement.innerHTML = (count > 0 ? count : "뻥!");
+            if (count < 0) {
+                // countdownElement.style.display = "none";
+                clearInterval(timer);
+            }
+            count--;
+        }
+
+        let timer = setInterval(countdown, 1000);
+    }
+</script>
+</html>

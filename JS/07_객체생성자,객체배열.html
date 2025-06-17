@@ -28,6 +28,21 @@
     <input type="button" value="동적제어" onclick="test5();">
     <input type="button" value="toString" onclick="test6();">
 
+    <br><br>
+    <hr>
+    <h2>객체배열</h2>
+    <input type="button" value="실행" onclick="test7();">
+
+    <br><br>
+    <hr>
+    <h2>생성자 함수 & Prototype</h2>
+    <input type="button" value="실행" onclick="test8();">
+
+    <br><br>
+    <hr>
+    <h2>자바스크립트 class</h2>
+    <input type="button" value="실행" onclick="test9();">
+
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 <script>
@@ -119,6 +134,192 @@
         console.clear();
         game && game.shutdown();
     }
-</script>
 
+    function test5() {
+        console.clear();
+
+        const student = {};
+        student.name = "홍길동";
+        student["class"] = "G";
+        student["no"] = 33;
+
+        console.log(student);
+
+        // 속성 제거
+        delete student.no;
+        delete student["class"];
+
+        console.log(student);
+    }
+
+    function test6() {
+        console.clear();
+        /*
+            toString 메서드 오버라이딩
+            - 자바스크립트는 모든 객체가 Object 클래스를 상속받음.
+        */
+        const notebook = {
+            title: "오늘의 일기",
+            content: "오늘은 성겸이가 지각을 했다.",
+            date: new Date(),
+            toString: function() {
+                let str = "";
+
+                for (let key in this) {
+                    key != "toString" &&
+                    (str += "key: " + key + ", value: " + this[key] + " ");
+                }
+
+                return str;
+            }
+        };
+
+        console.log(notebook);
+        console.log(notebook.toString());
+    }
+
+    function test7() {
+        console.clear();
+
+        const pets = [
+            {
+                name: "꽃분이",
+                breed: "말티즈",
+                weight: 4.5,
+                bark: function() {
+                    return this.weight > 10 ? "멍멍" : "왈왈";
+                }
+            },
+            {
+                name: "옥지",
+                breed: "시바",
+                weight: 9,
+                bark: function() {
+                    return this.weight > 10 ? "멍멍" : "왈왈";
+                }
+            }
+        ];
+
+        console.log(pets);
+
+        for (let pet of pets) {
+            console.log(pet.name + "(이)가 " + pet.bark() + "짖는다.");
+        }
+    }
+
+    /*
+        생성자 함수
+        - JavaScript에서 객체지향 프로그래밍을 지원하는 핵심 기능.
+        - 클래스를 정의하기 위한 용도의 함수.
+          생성자 함수로 만든 함수는 new 키워드를 함께 사용해서 호출해야 한다.
+        - 생성자 함수는 첫 글자를 클래스처럼 대문자로 작성하는 것이 관례.
+        - 모든 함수는 보이지 않는 prototype 이라는 속성을 가지고 있으며,
+          이 prototype을 통해 상속을 지원한다.
+
+        prototype
+        - 함수 정의시 prototype에는 부모객체가 생성되어 저장된다.
+          (부모객체 미 정의시에는 Object 객체가 생성되어 저장된다.)
+    */
+    function Pet(kind, name, breed, weight) {
+        // {}
+        // 필드부
+        // - 생성자 함수 내부에서 this는 현재 생성된 객체의 주소값을 의미.
+        this.kind = kind;
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
+
+        // 생성자부
+        // constructor -> class 에서 사용 가능
+        
+        // 메서드부
+        // this.bark = function() {
+        //     return this.weight > 10 ? "멍멍" : "왈왈";
+        // }
+
+        // 현재 클래스의 부모객체에 속성/메서드를 추가하는 방법
+        // Pet 객체가 가지는 공통적인 속성/메서드를 노출시키지 않고자 할 때 사용.
+        Pet.prototype.bark = function() {
+            return this.weight > 10 ? "멍멍" : "왈왈";
+            // return "Omnis";
+        };
+    }
+
+    function test8() {
+        console.clear();
+
+        const coco = new Pet("고양이", "코코", "브숏", 3);
+
+        console.log(coco);
+        console.log(coco.bark());
+        // console.log([].bark());
+    }
+
+    // 부모 클래스
+    class Animal {
+        kind;
+
+        constructor(kind) {
+            this.kind = kind;
+        }
+    }
+
+    // 자식클래스
+    class Pet2 extends Animal {
+        // name;
+        // breed;
+        // weight;
+        // JavaScript의 private 접근제한자
+        #hobby;
+
+        constructor(kind, name, breed, weight) {
+            super(kind);
+            this.name = name;
+            this.breed = breed;
+            this.weight = weight;
+        }
+
+        // 메서드부
+        // get/setter
+        // hobby에 값을 추가하는 setter 메서드
+        // setHobby(v) {
+        //     this.#hobby = v;
+        // }
+
+        // getHobby() {
+        //     return this.#hobby;
+        // }
+        
+        // 모던 JS의 get/setter
+        // 접근자 property
+        set hobby(v) {
+            this.#hobby = v;
+        }
+
+        get hobby() {
+            return this.#hobby;
+        }
+
+        // static 메서드
+        static bark(weight) {
+            return weight > 10 ? "멍멍" : "왈왈";
+        }
+    }
+
+    function test9() {
+        console.clear();
+
+        const cat = new Pet2("종", "이름", "브리드", 30);
+        // cat.setHobby("츄르먹기");
+
+        // console.log(cat);
+        // console.log(cat.getHobby());
+
+        // console.log(cat["#hobby"]);
+        cat.hobby = "낮잠자기"; // hobby 속성에 대한 setter 방식의 접근.
+        console.log(cat.hobby);
+
+        console.log(Pet2.bark(100));
+    }
+</script>
 </html>
