@@ -1,169 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Window</title>
-    <style>
-        #clock {
-            font-size : 3em;
-            text-shadow : 3px 3px 7px #000;
-        }
-        #countdown {
-            border: 3px solid #000;
-            font-size : 30em;
-            padding: 10px;
-            text-align : center;
-            display : none;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Window</title>
+	<style>
+		#clock {
+			font-size : 3em;
+			text-shadow : 3px 3px 7px #000;
+		}
+		#countdown {
+			border: 3px solid #000;
+			font-size : 30em;
+			padding: 10px;
+			text-align : center;
+			display : none;
+		}
+	</style>
 </head>
 <body>
-    <h1>Window</h1>
-    <h2>웹페이지 구조</h2>
-    <img src="/resources/image/window.png" alt="">
-    <h2>Method</h2>
-    <input type="button" value="open" onclick="test1();">
-    <input type="button" value="popup 닫기" onclick="test2();">
-    <input type="button" value="setTimeout" onclick="test3();">
-    <input type="button" value="실습문제" onclick="test4();">
-    <input type="button" value="clearTimeout" onclick="test5();">
-    <input type="button" value="setInterval" onclick="test6();">
-    <input type="button" value="실습문제" onclick="test7();">
-    <hr>
-    <div id="clock"></div>
-    <div id="countdown"></div>
+	<h1>Window</h1>
+	<h2>웹페이지 구조</h2>
+	<img src="/resources/image/window.png" alt="">
+	<h2>Method</h2>
+	<input type="button" value="open" onclick="test1();">
+	<input type="button" value="popup 닫기" onclick="test2();">
+	<input type="button" value="setTimeout" onclick="test3();">
+	<input type="button" value="실습문제" onclick="test4();">
+	<input type="button" value="clearTimeout" onclick="test5();">
+	<input type="button" value="setInterval" onclick="test6();">
+	<input type="button" value="실습문제" onclick="test7();">
+	<hr>
+	<div id="clock"></div>
+	<div id="countdown"></div>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<h2>BOM</h2>
+	<h3>Browser Object Model</h3>
+	<input type="button" value="navigator" onclick="test8();">
+	<input type="button" value="location" onclick="test9();">
+	<input type="button" value="history" onclick="test10();">
+	<input type="button" value="screen" onclick="test11();">
+
+	<br><br>
+	<hr>
+
+	<h2>DOM</h2>
+	<input type="button" value="createElement" onclick="test12();">
+	<input type="button" value="createImg" onclick="test13();">
+	<input type="button" value="deleteNode" onclick="deleteNode(this);">
+	<input type="button" value="실습문제" onclick="test14();">
+	<div class="img-wrapper"></div>
+	<div class="result"></div>
+
+	<br>
+	<hr>
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 <script>
-    /*
-        window
-        - 웹 브라우저에 의해 탭마다 하나씩 생성되는 객체.
-        - 웹 브라우저상의 최상위 객체.
-        - 단, JavaScript 를 실행하는 환경에 따라 존재하지 않을 수도 있다.
-        - 브라우저와 관련된 다양한 기능을 제공.
+	/*
+		window
+		- 웹 브라우저에 의해 탭마다 하나씩 생성되는 객체.
+		- 웹 브라우저상의 최상위 객체.
+		- 단, JavaScript 를 실행하는 환경에 따라 존재하지 않을 수도 있다.
+		- 브라우저와 관련된 다양한 기능을 제공.
 
-        open(): 새창열기(새로운 window생성)
-        - 새 탭으로 열기
-        - 팝업창 형태로 열기
+		open(): 새창열기(새로운 window생성)
+		- 새 탭으로 열기
+		- 팝업창 형태로 열기
 
-        open(url, name, specs)
-        - name: 팝업창의 이름.
-        - specs: 문자열 형태로 새탭의 창크기, 상태표시줄여부, 위치 등을 지정.
-    */
-    let window2;
+		open(url, name, specs)
+		- name: 팝업창의 이름.
+		- specs: 문자열 형태로 새탭의 창크기, 상태표시줄여부, 위치 등을 지정.
+	*/
+	let window2;
 
-    function test1() {
-        window2 = open("08_함수.html", "_self2", "width=800, height=500, top=300, left=300");
+	function test1() {
+		window2 = open("08_함수.html", "_self2", "width=800, height=500, top=300, left=300");
 
-        // window.alert("1");
-    }
+		// window.alert("1");
+	}
 
-    function test2() {
-        window2 && window2.close(); // 윈도우를 닫는 메서드.
-    }
+	function test2() {
+		window2 && window2.close(); // 윈도우를 닫는 메서드.
+	}
 
-    function test3() {
-        console.clear();
-        /*
-            setTimeout(callbackFunction, mills);
-        */
-        console.log('111111');
-        setTimeout(function() {
-            console.log("hi, omnis");
-            alert("hi, omnis");
-        }, 3000);
-        console.log('222222');
+	function test3() {
+		console.clear();
+		/*
+			setTimeout(callbackFunction, mills);
+		*/
+		console.log('111111');
+		setTimeout(function() {
+			console.log("hi, omnis");
+			alert("hi, omnis");
+		}, 3000);
+		console.log('222222');
 
-        // setTimeout(() => {
-        //     window2.alert("hi, omnis");
-        // }, 3000);
-    }
+		// setTimeout(() => {
+		//     window2.alert("hi, omnis");
+		// }, 3000);
+	}
 
-    function test4() {
-        console.clear();
-        var i = 1;
-        console.log(1, i++); // 1
-        test(i); // 2
-        setTimeout(function() {
-            console.log(2, i++);
-        });
-        console.log(3, i);
-    }
+	function test4() {
+		console.clear();
+		var i = 1;
+		console.log(1, i++); // 1
+		test(i); // 2
+		setTimeout(function() {
+			console.log(2, i++);
+		});
+		console.log(3, i);
+	}
 
-    function test5() {
-        // clearTimeout: queue에 저장된 timeout 함수를 제거해주는 함수
-        const timeId = setTimeout(function() {
-            console.log("1초 후에 실행하기");
-            // console.log(timeId);
-        }, 1000);
+	function test5() {
+		// clearTimeout: queue에 저장된 timeout 함수를 제거해주는 함수
+		const timeId = setTimeout(function() {
+			console.log("1초 후에 실행하기");
+			// console.log(timeId);
+		}, 1000);
 
-        // console.log(timeId);
+		// console.log(timeId);
 
-        clearTimeout(timeId);
-    }
+		clearTimeout(timeId);
+	}
 
-    function test(i) {
-        console.log(i--);
-    }
+	function test(i) {
+		console.log(i--);
+	}
 
-    function test6() {
-        console.clear();
-        /*
-            setInterval(callbackfn, mills)
-            - millis초 마다 callbackfn을 실행하는 함수.
-            - setTimeout과 동일한 비동기 함수.
-        */
-        // var num = 1;
-        // setInterval(function() {
-        //     console.log(num++);
-        // }, 1000);
-        function foo() {
-            const now = new Date();
-            const strFormat = getTimeFormat(now);
+	function test6() {
+		console.clear();
+		/*
+			setInterval(callbackfn, mills)
+			- millis초 마다 callbackfn을 실행하는 함수.
+			- setTimeout과 동일한 비동기 함수.
+		*/
+		// var num = 1;
+		// setInterval(function() {
+		//     console.log(num++);
+		// }, 1000);
+		function foo() {
+			const now = new Date();
+			const strFormat = getTimeFormat(now);
 
-            document.querySelector("#clock").innerHTML = strFormat;
-        }
+			document.querySelector("#clock").innerHTML = strFormat;
+		}
 
-        // 00:00:00
-        function getTimeFormat(time) {
-            var hh = format(time.getHours());
-            var mm = format(time.getMinutes());
-            var ss = format(time.getSeconds());
+		// 00:00:00
+		function getTimeFormat(time) {
+			var hh = format(time.getHours());
+			var mm = format(time.getMinutes());
+			var ss = format(time.getSeconds());
 
-            function format(n) {
-                return n < 10 ? "0" + n : n;
-            }
+			function format(n) {
+				return n < 10 ? "0" + n : n;
+			}
 
-            return [hh, mm, ss].join(":");
-        }
+			return [hh, mm, ss].join(":");
+		}
 
-        setInterval(foo, 1000);
-    }
+		setInterval(foo, 1000);
+	}
 
-    function test7() {
-        /*
-            실습문제
-            버튼클릭시 카운트다운하는 함수 만들기
-            10, 9 , 8, 7, 6, 5,... 1..
-            0도달시 카운트다운 종료.
-        */
-        // document.querySelector("#countdown").innerHTML = "10";
-        let countdownElement = document.querySelector("#countdown");
-        let count = 10;
-        
-        function countdown() {
-            countdownElement.style.display = "block";
-            countdownElement.innerHTML = (count > 0 ? count : "뻥!");
-            if (count < 0) {
-                // countdownElement.style.display = "none";
-                clearInterval(timer);
-            }
-            count--;
-        }
+	function test7() {
+		/*
+			실습문제
+			버튼클릭시 카운트다운하는 함수 만들기
+			10, 9 , 8, 7, 6, 5,... 1..
+			0도달시 카운트다운 종료.
+		*/
+		// document.querySelector("#countdown").innerHTML = "10";
+		debugger;
+		let count = 10;
+		let countdownElement = document.querySelector("#countdown");
+		countdownElement.style.display = "block";
 
-        let timer = setInterval(countdown, 1000);
-    }
+		function countdown() {
+			countdownElement.innerHTML = (count > 0 ? count : "뻥!");
+			if (count < 0) {
+				// countdownElement.style.display = "none";
+				clearInterval(timer);
+			}
+			count--;
+		}
+
+		let timer = setInterval(countdown, 1000);
+	}
+
+	// BOM(Browser Object Model)
+	function test8() {
+		console.clear();
+		/*
+			navigator: 현재 실행중인 browser 에 대한 정보를 가진 객체.
+			- 클라이언트의 브라우저정보를 확인하여 적합한 콘텐츠를 제공.
+		*/
+		console.log(navigator);
+	}
+
+	// console.log("페이지 로딩시 실행");
+
+	function test9() {
+		console.clear();
+		/*
+			location:
+			- 브라우저의 주소창과 관련된 정보를 가진 객체.
+			- 브라우저의 URL에서 프로토콜, 호스트네임, 포트번호, 자원경로등을 얻어올 수 있다.
+			- 브라우저의 URL을 조작하여 다른 값으로 변경할 수도 있다.
+		*/
+		console.log(location);
+		// location.reload(); // 현재 페이지 새로고침
+
+		// 페이지 이동 방법
+		// location.href = "https://naver.com";
+		// location.assign("https://naver.com"); // 뒤로가기 가능
+		// location.replace("https://naver.com"); // 뒤로가기 불가능
+	}
+
+	function test10() {
+		console.clear();
+		/*
+			history
+			- 방문기록과 관련된 정보를 가진 객체
+			back(): 뒤로 가기
+			forward(): 앞으로 가기
+			go(n): n번째 페이지로 이동하기
+		*/
+
+		console.log(history);
+		history.back();
+		// console.log(history.back());
+	}
+
+	function test11() {
+		console.clear();
+		/*
+			screen
+			- 모니터 관련 정보를 가진 객체.
+		*/
+
+		console.log(screen);
+	}
+
+	// DOM(Document Object Model)
+	/*
+		Node 객체:
+		- 모든 DOM 객체는 Node 객체를 상속 받는다.
+		- html 내부에 작성하는 주석, 문자열, 태그 모두 node가 된다.
+		- 모든 html 요소는 node의 메서드를 사용할 수 있고, EventTarget의 이벤트 속성들을 이용할 수 있다.
+		- DOM 객체의 속성과 메서드들
+		1) firstChild, lastChild, childNodes, ...
+		2) contains(), appendChild(), removeChild(), ...
+	*/
+	function test12() {
+		console.clear();
+
+		// <h3>안녕하세요</h3>
+
+		// 동적으로 html요소 생성하기
+		// 1. innerHTML 사용
+		document.querySelector(".result").innerHTML = "<h3>안녕하세요</h3>";
+
+		// 2. document 객체 생성 메서드 활용하기.
+		// 1) elementNode 생성 메서드
+		const h3 = document.createElement("h3"); // <h3></h3>
+		console.log(h3);
+		// 2) textNode 생성
+		const textNode = document.createTextNode("안녕하십니까");
+
+		// 3) 두 노드를 연결
+		// - 계층구조 설정
+		h3.appendChild(textNode); // <h3>안녕하십니까</h3>
+		console.log(h3);
+
+		document.querySelector(".result").appendChild(h3);
+	}
 </script>
+<script src="./js/09_window.js"></script>
 </html>
