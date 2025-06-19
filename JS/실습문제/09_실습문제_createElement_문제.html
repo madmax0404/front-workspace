@@ -96,7 +96,9 @@
         const boardList = document.querySelectorAll("ul>li");
 
         for (let i = 0; i < boardList.length; i++) {
-            if (boardList[i].innerHTML.includes(searchbar.value)) {
+            // console.log(boardList[i].textContent);
+            // console.log(boardList[i].innerText);
+            if (boardList[i].innerText.includes(searchbar.value)) {
                 boardList[i].style.display = "block";
             } else {
                 boardList[i].style.display = "none";

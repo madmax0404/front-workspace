@@ -274,6 +274,17 @@
 		console.log(h3);
 
 		document.querySelector(".result").appendChild(h3);
+
+		console.log("-----------");
+
+		// console.log(document.querySelector(".result").firstChild);
+		// console.log(document.querySelector(".result").childNodes);
+
+		let tempChildNodes = document.querySelector(".result").childNodes
+
+		for (child of tempChildNodes) {
+			console.log(child.innerHTML);
+		}
 	}
 </script>
 <script src="./js/09_window.js"></script>

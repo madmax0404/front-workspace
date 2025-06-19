@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regular Expression</title>
     <style>
-        #area {
+        .area {
             margin: 30px 10px;
         }
         mark {
@@ -28,8 +28,8 @@
     <input type="button" value="* + ?" onclick="test11();">
     <input type="button" value="{n,m}" onclick="test12();">
     <input type="button" value="look around" onclick="test13();">
-    <div id="area"></div>
-    <div id="area2"></div>
+    <div class="area" id="area"></div>
+    <div class="area" id="area2"></div>
 </body>
 <script>
     /*
@@ -198,6 +198,103 @@
 
         area.innerHTML = s.replace(re1, "<mark>$&</mark>");
         area2.innerHTML = s.replace(re2, "<mark>$&</mark>");
+    }
+
+    /*
+        escaping
+        - 메타문자를 실제문자값으로 사용하고자 한다면 \를 통해 이스케이핑 처리한다.
+        - 단, []내부에서는 escaping이 필요 없다.
+    */
+    function test10() {
+        const s = '$12$ \\-\\ $25$';
+        area.innerHTML = s.replace(/\$/g, "<mark>$&</mark>");
+        area2.innerHTML = s.replace(/[$]/g, "<mark>$&</mark>");
+
+        area.innerHTML = s.replace(/\$$/g, "<mark>$&</mark>");
+        area2.innerHTML = s.replace(/[$]$/g, "<mark>$&</mark>");
+
+        area.innerHTML = s.replace(/^\$/g, "<mark>$&</mark>");
+        area2.innerHTML = s.replace(/^[$]/g, "<mark>$&</mark>");
+    }
+
+    function test11() {
+        /*
+            수량자
+            a*: a가 0개 이상.
+            a+: a가 1개 이상.
+            a?: a가 0개 혹은 1개.
+        */
+        const s = 'aabc abc bc';
+        area.innerHTML = s.replace(/a*b/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/a+b/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/a?b/g, '<mark>$&</mark>');
+    }
+
+    function test12() {
+        console.clear();
+        /*
+            수량표현
+            a{5}: a가 5개.
+            a{2,5}: a가 2~5개.
+            a{3,}: a가 3개이상.
+            a{,4}: 존재하지 않는 문법.
+         */
+        const s = 'aa aba abba abbba';
+        area.innerHTML = s.replace(/ab{2}a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab{1,2}a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab{2,}a/g, '<mark>$&</mark>');
+
+        area.innerHTML = s.replace(/ab*a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab{0,}a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab+a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab{1,}a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab?a/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/ab{0,1}a/g, '<mark>$&</mark>');
+
+        // 1글자의 숫자로 시작하고, 영문자 3글자이상 나오고, 마침표로 끝나는 문자열을 검사하는 정규식 작성
+        // 영문자는 대소문자를 구분하지 않는다
+        // 숫자 다음으로 반드시 영문자 3글자 이상 와야한다.
+        // 영문자가 작성된후 마침표 까지 다른 문자는 몇 글자가 들어오든 상관 없다.
+        const re = /^\d[a-z]{3,}.*\.$/i;
+
+        console.log('-----------');
+
+        ["1abc안녕하세요.", "3xyzkkk.", "1ABC."].forEach(function(s){
+            console.log(re.test(s)); // true
+        });
+        ["100", "1cbㅋㅋㅋ.", "아아아아.", "1가나다abc.", "123abc다나가."].forEach(function(s){
+            console.log(re.test(s)); // false
+        });
+    }
+
+    function test13() {
+        /*
+            Look Around: 탐색
+
+            1. look ahead(전방탐색)
+            - 000(?=(re)): 000다음 re일치하는 패턴을 검색.
+            - 최종 반환되는 패턴은 000만 반환.
+            - 000(?!(re)): 000다음 re와 일치하지 않는 패턴.
+
+            2. look behind(후방탐색)
+            - (?<=(re))000: 000앞에 re일치하는 요소를 반환.
+            - (?<!(re))000: 000앞에 re와 일치하지 않는 요소를 반환.
+         */
+        const s = "hello world hello tom hello Jane";
+        area.innerHTML = s.replace(/hello(?=( world))/g, '<mark>$&</mark>');
+        area.innerHTML = s.replace(/hello(?!( world))/g, '<mark>$&</mark>');
+
+        const s2 = 'hello world lotte world t world';
+        // world 앞에 hello 가 들어간 world 만 탐색.
+        // world 앞에 hello 가 아닌 문자열이 들어간 world 들 탐색.
+        area.innerHTML = s2.replace(/(?<=(hello ))world/g, '<mark>$&</mark>');
+        area2.innerHTML = s2.replace(/(?<!(hello ))world/g, '<mark>$&</mark>');
+
+        const s3 = 'abserbsb374098174*!&';
+        // const reg = /^(?=.*[a-z])(?=.*[0-9])(?=.*[*!&])(?=.*[$%])/i;
+        const reg = /\d/;
+        console.log(reg.test(s3));
+        // area.innerHTML = s3.replace(/^(?=.*[a-z])/, '<mark>$&</mark>')
     }
 </script>
 </html>
