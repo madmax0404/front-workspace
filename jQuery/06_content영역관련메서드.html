@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영역 관련 메서드</title>
+</head>
+<body>
+    <h1>Content 영역(innerHTML, innerText) 관련 메서드</h1>
+
+    <h1 id="test1">네이버로</h1>
+    <h1 id="test2"></h1>
+
+    <hr>
+    <div class="class1">test</div>
+    <div class="class1">test</div>
+    <div class="class1">test</div>
+    <hr>
+    <div class="class2">test1</div>
+    <div class="class2">test2</div>
+    <div class="class2">test3</div>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+<script src="./resources/jquery_3.7.1.js"></script>
+<script>
+    $(function() {
+        console.clear();
+        const test1 = $('#test1').html();
+        $('#test2').html(test1);
+
+        // test1.onclick = function() {
+        //     location.assign('https://naver.com');
+        // }
+
+        // $('.class1').html('<h1>Omnis</h1>');
+
+        // function 의 첫번째 인자는 index
+        // function 의 두번째 인자는 item(선택된 요소의 innerHTML)이 전달된다.
+        $('.class1').html(function(index, item) {
+            return '<h1>현재 인덱스:' + index + ' / 현재 item: ' + item +  '</h1>';
+        });
+
+        $('.class2').text(function(index, item) {
+            return '현재 인덱스: ' + index + ' / 현재 item: ' + item;
+        });
+    });
+</script>
+</html>

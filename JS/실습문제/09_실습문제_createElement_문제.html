@@ -76,6 +76,11 @@
         const title = document.querySelector("header>input");
         const content = document.querySelector("section>textarea");
 
+        if (!(title.value && content.value)) {
+            alert("게시글 제목과 내용은 1글자 이상 작성해 주세요.");
+            return false;
+        }
+
         const li = document.createElement("li");
         const h5 = document.createElement("h5");
         const p = document.createElement("p");
@@ -84,6 +89,9 @@
         li.append(h5, p);
         h5.innerHTML = title.value;
         p.innerHTML = content.value;
+
+        title.value = "";
+        content.value = "";
     }
     
     /* 

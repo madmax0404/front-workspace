@@ -34,33 +34,39 @@
         <button type="button" data-url='https://www.w3schools.com'>와삼</button>
     </div>
 </body>
-    <script>
-        window.onload = function() {
-            const btnGen = document.querySelector("#btn-generate");
-            btnGen.onclick = function() {
-                const dataDict = {
-                    네이버: "https://www.naver.com",
-                    구글: "https://www.google.com",
-                    KH: "https://www.iei.or.kr",
-                    와삼: "https://www.w3schools.com"
-                };
+<script>
+    window.onload = function() {
+        const btnGen = document.querySelector("#btn-generate");
+        btnGen.onclick = function() {
+            const dataDict = {
+                네이버: "https://www.naver.com",
+                구글: "https://www.google.com",
+                KH: "https://www.iei.or.kr",
+                와삼: "https://www.w3schools.com"
+            };
 
-                let wrapper = document.querySelector(".btn-wrapper");
+            let wrapper = document.querySelector(".btn-wrapper");
 
-                for (k in dataDict) {
-                    console.log(k, dataDict[k]);
-                    let btn = document.createElement("button");
-                    let aTag = document.createElement("a");
-                    aTag.href = dataDict[k];
-                    aTag.innerHTML = k;
-                    btn.appendChild(aTag);
-                    btn.style.margin = "4px";
-                    aTag.style.textDecoration = "none";
-                    aTag.style.color = "black";
+            for (k in dataDict) {
+                // console.log(k, dataDict[k]);
+                let btn = document.createElement("button");
+                let aTag = document.createElement("a");
+                aTag.href = dataDict[k];
+                aTag.innerHTML = k;
+                btn.appendChild(aTag);
+                btn.style.margin = "4px";
+                aTag.style.textDecoration = "none";
+                aTag.style.color = "black";
+                
+                // btn.innerText = k;
+                // console.log(dataDict[k]);
+                // btn.onclick = function() {
+                //     location.assign(dataDict[k]);
+                // };
 
-                    wrapper.appendChild(btn);
-                }
+                wrapper.appendChild(btn);
             }
         }
-    </script>
+    }
+</script>
 </html>

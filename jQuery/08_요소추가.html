@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소추가</title>
+    <style>
+        .highlight-0 {
+            background:red;
+        }
+        .highlight-1 {
+            background:orange;
+        }
+        .highlight-2 {
+            background:yellow;
+        }
+        .highlight-3 {
+            background:green;
+        }
+        .highlight-4 {
+            background:blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>추가 메서드</h1>
+    <hr>
+    <h3>* each 메서드</h3>
+    <pre>
+배열의 모든 인덱스에 순차적으로 접근하고자 할 때,
+객체가 가지고 있는 모든 속성에 순차적으로 접근하고자 할 때,
+사용하는 메서드.(for of, for in의 기능이 모두 들어가 있다.)
+    </pre>
+
+    <div id="area1"></div>
+
+    <div id="wrap">
+        <h1>item-1</h1>
+        <h1>item-2</h1>
+        <h1>item-3</h1>
+        <h1>item-4</h1>
+        <h1>item-5</h1>
+    </div>
+
+    <hr>
+    <h3>* is 메서드</h3>
+    <h3 class="test">test1</h3>
+    <h3>test2</h3>
+    <h3 class="test">test3</h3>
+    <h3 class="test">test4</h3>
+    <h3>test5</h3>
+    <h3 class="test">test6</h3>
+
+    <hr>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+<script src="./resources/jquery_3.7.1.js"></script>
+<script>
+    $(function() {
+        console.clear();
+        const arr = ['한','종','윤'];
+        const dict = {'babo':'you', 'genius':'me'};
+        
+        /*
+            [표현법]
+            1) $.each(객체/배열, function(매개변수1, 매개변수2) {
+                실행할 내용
+            });
+
+            2) $('선택자'/배열).each(function(매개변수1, 매개변수2) {
+                실행할 내용
+            });
+        */
+        
+        $.each(arr, function(i, v) {
+            console.log(i, v);
+        });
+
+        console.log('---------');
+
+        $(arr).each(function(i, v) {
+            console.log(i, v);
+        });
+
+        $.each(dict, function(i, v) {
+            console.log(i, v);
+        });
+
+        $('#wrap').children().each(function(i, v) {
+            console.log(i, v.innerText);
+        });
+
+        $.each($('#wrap').children(), function(i, v) {
+            console.log(i, v.innerText);
+            $(v).addClass('highlight-' + i)
+        });
+
+        /*
+            .is('선택자')
+            - 선택된 요소가 내가 전달한 선택자와 일치하는지 판단하여 일치한다면 true, 아니라면 false 반환
+        */
+        $('h3').each(function(i, v) {
+            //
+            // console.log(this);
+            if ($(this).is('.test')) {
+                $(this).css({'background':'orange'});
+            } else {
+                $(this).css({'background':'pink'});
+            }
+        });
+    });
+</script>
+</html>
