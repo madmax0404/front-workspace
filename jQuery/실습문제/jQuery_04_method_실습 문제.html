@@ -44,12 +44,17 @@
     <script>
         var idx = 0;
         function addFile(){
-            $('div').after('<div class=added>hi</div>');
+            $('div').eq(-1).after('<div class=added><input type="file" name="f0"/>  &nbsp;&nbsp;</div>');
+            // $('div').siblings().after('<div class=added>hi</div>');
+            $('div').css({'margin-top':'20px'});
         }
         function delFile(){
             //input:file의 최소개수는 1개로 제한.
+            if ($('div').length > 1) {
+                $('div').eq(-1).remove();
+            }
         }
-        </script>
+    </script>
     
     <div>
         <input type="file" name="f0"/>  &nbsp;&nbsp;
