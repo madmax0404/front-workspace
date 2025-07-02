@@ -17,8 +17,12 @@
             $('select[name=number]').change(function() {
                 // console.log(1);
                 // console.log($(this).filter(':checked').text());
-                console.log($(this).val());
-                $('#selNum').text($(this).val() + '번');
+                console.log($(this).val() == '');
+                if ($(this).val() == '') {
+                    $('#selNum').text('');
+                } else {
+                    $('#selNum').text($(this).val() + '번');
+                }
             });
         });
     </script>
@@ -41,7 +45,7 @@
             //
             // console.log($('#event2').children());
 
-            $('#event2').on('click', 'tr', function() {
+            $('#event2 tr').not(':first').on('click', function() {
                 //
                 $('#s1').text($(this).children().eq(0).html());
                 $('#s2').text($(this).children().eq(1).html());
@@ -69,7 +73,7 @@
     <script>
         $(function() {
             //
-            $('#event3').on('click', 'tr', function() {
+            $('#event3 tr').not(':first').on('click', function() {
                 //
                 $('#s5').text($(this).children().eq(0).html());
                 $('#s6').text($(this).children().eq(1).html());
