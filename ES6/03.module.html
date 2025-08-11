@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./03.esm.js"></script>
+    <script type="module">
+        import {sayHi} from './03.esm.js';
+        // default 값 import 시에는 {}를 생략한다. 어차피 가져올 것이 1개밖에 없기 때문에 변수명은 바꿔도 된다.
+        import abczz from './03.esm.js';
+        import {fn1} from './03.esm.js';
+
+        sayHi();
+        console.log(abczz);
+        fn1(1234);
+
+        // import 시 변수명 수정
+        import {fn1 as function1} from './03.esm.js';
+        function1(1111);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
