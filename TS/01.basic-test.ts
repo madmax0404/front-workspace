@@ -73,8 +73,8 @@ let favorite:('치킨'|'햄버거') = '치킨'; // ok
 //    test1의 타입은 ?
 let test1:(undefined|string)  = undefined; // ok
 test1 = '1234'; // ok
-test1 = 1234; // compile error
-test1 = true; //compile error
+// test1 = 1234; // compile error
+// test1 = true; //compile error
 
 //Q2. test2 변수에는 모든 값을 담을 수 있습니다.
 //    true, 1234, undefined등을 넣어도 문제가 없습니다.
@@ -92,4 +92,4 @@ test1 = test2; // ok
 let test3:unknown = undefined; // ok
 test3 = 1234; // ok
 test3 = true; // ok
-test1 = test3; // compile error
+// test1 = test3; // compile error

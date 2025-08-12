@@ -127,6 +127,7 @@ let tempObject:Object;
 tempObject = 1;
 tempObject = 'hi';
 tempObject = true;
+// str = tempObject;
 
 // 다양한 타입이 들어가는 배열
 let unionArr:(string|number|boolean)[];
