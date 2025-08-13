@@ -8,7 +8,7 @@
 // introduction은 클래스의 name,address,age속성에 저장된 내용을 출력하며 매개변수와 반환값은 없는 메서드입니다.
 
 class Person {
-    constructor(public name:string, private age:number, readonly address:string) {}
+    constructor(public name:string, private age:number, private readonly address:string) {}
     introduction() {
         console.log(`안녕 난 ${this.name}이라고해. ${this.address}에 살고 나이는 ${this.age}야.`);
     }
@@ -28,16 +28,16 @@ mkm.introduction(); // 안녕 난 mkm이라고해.서울에 살고 나이는 123
 // 출력형식은 아래 문제를 참고
 
 abstract class Pet {
-    constructor(kind:string, name:string){}
+    constructor(protected kind:string, protected name:string){}
     abstract info():void;
 }
 class Hamster extends Pet {
-    constructor(private kind:string, private name:string, private food?:string) {
+    constructor(protected kind:string, protected name:string, private food?:string) {
         super(kind, name);
     }
     info() {
         console.log(`이 햄스터는 ${this.kind}종이며, 이름은 ${this.name}입니다.`);
-        this.food ? console.log(`주식은 ${this.food}를 먹습니다.`) : 0;
+        this.food && console.log(`주식은 ${this.food}를 먹습니다.`);
     }
 }
 const hamzzi:Hamster = new Hamster('페디그리 햄스터', '햄찌', '해바라기씨');
@@ -82,13 +82,7 @@ interface Product {
     category: string;
 }
 
-type ProductUpdateInput = {
-    id: number,
-    name: string,
-    price: number,
-    description?: string,
-    stock?: 5
-};
+type ProductUpdateInput = Required<Pick<Omit<Product, "category">, "id"|"name"|"price">> & Partial<Pick<Omit<Product, "category">, "description"|"stock">>;
 const product1:ProductUpdateInput = {id:1,name:'galaxy1',price:500000};
 const product2:ProductUpdateInput = 
 {id:2,name:'galaxy2',price:1000000, description: '멋진상품입니다.',stock:5};
@@ -105,19 +99,14 @@ const product2:ProductUpdateInput =
 // 각 입력필드들을 저장하는 FormField타입을 정의하세요.
 // FormField에 대한 에러메세지를 저장하는 객체타입 FormErrorMap을 정의하세요.
 
-type FormField = {
-    email:string,
-    password:string,
-    nickname:string,
-    phone:string
-};
-type FormErrorMap = FormField;
-const errorMessages: FormErrorMap = {
+type FormField = "email" | "password" | "nickname" | "phone";
+type FormErrorMap = string;
+const errorMessages:Record<FormField, FormErrorMap> = {
   email: "이메일을 입력해주세요",
   password: "비밀번호는 8자 이상이어야 합니다",
   nickname: "닉네임을 입력해주세요",
   phone: "전화번호를 입력해주세요",
-//   hobby : "취미를 입력해주세요" hobby추가시 컴파일 에러
+//   hobby : "취미를 입력해주세요" // hobby추가시 컴파일 에러
 };
 console.log(errorMessages);
 
@@ -139,10 +128,10 @@ function fetchPost({ id, title, content, comments }: PostData) {
     return { id, title, content, comments };
 }
 
-type PostResponse = typeof fetchPost;
-type PostParams = PostData;
-function logAndFetchPost({...args}:PostParams) {
-    console.log(args.id, args.title, args.content, args.comments);
+type PostResponse = ReturnType<typeof fetchPost>;
+type PostParams = Parameters<typeof fetchPost>;
+function logAndFetchPost(...args:PostParams) {
+    console.log(...Object.values(args[0]));
 }
 
 const post = {

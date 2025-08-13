@@ -109,3 +109,109 @@ function config<T extends Options = {theme:"dark"}>(option?:T):T {
     // - a ?? b -> a가 null 또는 undefined인 경우 b 반환, 아닌경우 a
     return option ?? {theme:"dark"} as T;
 }
+
+// 4) keyOf 연산자와 Generic
+// - 객체타입의 속성 명들을 UnionType으로 추출하는 연산자.
+type Person2 = {
+    name: string,
+    age: number,
+    location: string
+};
+type KeyOfPerson = keyof Person2; // "name" | "age" | "location" 리터럴들이 병합된 상태.
+
+function getValue<K extends KeyOfPerson>(person:Person2, key:K):Person2[K] {
+    return person[key];
+}
+const person:Person2 = {name:'hjy', age:37, location:'Seoul'};
+const value = getValue(person, "age");
+console.log(value);
+
+/**
+ * 4. Utility Type
+ * - 기존 객체타입들을 변형 및 조작할 수 있도록 도와주는 유틸리티 타입들.
+ * 
+ * 1) Partial<T>
+ * - T의 모든 속성을 optional 속성으로 변경해주는 유틸리티 타입.
+ * - 모든 속성을 필수, 읽기 전용으로 만들어주는 Required<T>, Readonly<T>도 존재한다.
+ */
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+// const user:User = {id:1, name:'hjy'}; // 수정할 데이터 중 email이 없는 경우 에러.
+const PartialUser:Partial<User> = {id:1, name:'hjy'};
+
+/**
+ * 2) Pick<T, K>
+ * - 객체의 속성 중 일부만 선택하여 새로운 타입을 만들 때 사용한다.
+ */
+type SimpleUser = Pick<User, "name" | "email">;
+
+// 3) Omit<T, K>
+// - 객체타입에서 특정 속성을 제외하고 나머지만 남긴 새 타입을 만들 때 사용한다.
+// id를 제외한 사용자 정보
+type NewUser = Omit<User, "id">;
+const userData:NewUser = {name: 'hjy', email:'hjy@email.com'};
+/**
+ * Utility Type 조합
+ * 1. User에서 id를 제외한 나머지 속성을 선택 후 전체를 옵셔널로 만들기.
+ * 2. User의 속성 중 name 속성을 필수로 만들기.
+ * 3. 1, 2번을 병합.
+ * 
+ * 같은 속성이 겹치는 경우 더 구체적인 속성으로 우선시되어 병합.
+ */
+type EditableUser = Partial<Omit<User, "id">> & Required<Pick<User, "name">>;
+
+/**
+ * 4) Record<K, T>
+ * - 키 집합을 기준으로 T 타입을 지정하는 객체 타입을 만든다.
+ * - 지정된 키값들로 구성된 객체를 만들고 싶을 때 사용한다.
+ */
+type Page = "home" | "about" | "contact";
+type PageInfo = {
+    title:string,
+    path:string
+};
+const pageMap:Record<Page, PageInfo> = {
+    home: {title:"홈페이지", path:"/"},
+    about: {title:"어바웃", path:"/about"},
+    contact: {title:"연락처", path:"/contact"}
+};
+
+/**
+ * 5) ReturnType<T>
+ * - 함수타입 T가 반환하는 결과의 타입을 그대로 가져오는 유틸리티 타입.
+ */
+function getUser() {
+    return {id:1, name:'hjy', email:'abc'};
+}
+type UserData = ReturnType<typeof getUser>;
+const data:UserData = {id:11, name:'Omnis', email:'hmm'};
+
+/**
+ * 6) Parameters<T>
+ * - 함수타입 T의 매개변수 타입을 배열로 추출.
+ * - 함수의 동일한 시그니쳐 유지를 위해 사용한다.
+ */
+function greet(name:string, age:number) {
+
+}
+type GreetParams = Parameters<typeof greet>; // [string, number]
+const callGreet = function(...args:GreetParams) {
+    greet(...args);
+}
+callGreet('hjy', 37);
+
+
+
+
+
+
+
+
+
+
+
+
+export default Animal;

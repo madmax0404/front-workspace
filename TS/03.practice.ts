@@ -134,9 +134,9 @@ coin.trade = true; // ok
 // user객체의 나머지 정보를 뽑아 others로 만든 후 두 번째 console.log에 대입하세요.
 // ??공간에서만 코드를 작성해야 합니다.
 
-function greetUser({name, age, email, location}:{name:string, age:number, email:string, location:string}) {
+function greetUser({name, age, ...others}:{name:string, age:number, [key:string]:string|number}) {
     console.log(`안녕하세요. 제이름은 ${name} ${age}살 입니다.`); // 안녕하세요. 제이름은 홍길동 30살 입니다.
-    console.log(`추가정보 : { email: '${email}', location: '${location}' }`); // 추가정보 : { email: 'hong@test.com', location: '서울' }
+    console.log(`추가정보 : `, others); // 추가정보 : { email: 'hong@test.com', location: '서울' }
 }
 const user = {
     name: '홍길동',
@@ -145,5 +145,14 @@ const user = {
     location: '서울'
 };
 greetUser(user);
+
+
+
+
+
+
+
+
+
 
 export default user;
