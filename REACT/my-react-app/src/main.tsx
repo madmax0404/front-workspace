@@ -6,7 +6,7 @@ import Practice from './Practice.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <>
-    <App />
-    {/* <Practice/> */}
+    {/* <App /> */}
+    <Practice/>
   </>,
 )

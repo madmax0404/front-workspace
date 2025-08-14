@@ -17,7 +17,7 @@ function App() {
       {/* <ArrayDataBinding/> */}
       {/* <ObjectDataBinding/> */}
       {/* <ModuleCSS/> */}
-      <UseEffectHook/>
+      {/* <UseEffectHook/> */}
     </>
   )
 }
