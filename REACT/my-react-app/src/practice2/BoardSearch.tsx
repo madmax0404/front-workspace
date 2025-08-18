@@ -27,13 +27,15 @@ function BoardSearch({ list }: { list: typeof boardList }) {
     const onSearchHandler = () => {
         const keyword = keywordRef.current?.value;
 
-        if (typeof keyword !== "undefined") {
+        if (keyword) {
             const filteredList = [...list].filter((board) => board.boardTitle.includes(keyword));
-            if (filteredList.length == 0 || keyword == "") {
+            if (filteredList.length == 0) {
                 setResult(null);
             } else {
                 setResult(filteredList);
             }
+        } else {
+            setResult(null);
         }
     };
 
