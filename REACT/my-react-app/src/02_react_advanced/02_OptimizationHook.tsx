@@ -41,7 +41,7 @@ export default function OptimizationHook() {
     }, [sorted]);
 
     return (
-        <div>
+        <>
             <h2>최적화 Hook</h2>
             <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
             <p>원본 데이터: {numbers.join(", ")}</p>
@@ -52,7 +52,7 @@ export default function OptimizationHook() {
             <button onClick={() => setNumbers([...numbers, Math.floor(Math.random() * 100)])}>
                 숫자 추가
             </button>
-        </div>
+        </>
     )
 }
 

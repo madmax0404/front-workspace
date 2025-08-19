@@ -44,7 +44,7 @@ export default function AxiosGet() {
     }, []);
 
     return (
-        <div>
+        <>
             <h2>사용자 목록</h2>
             <ul>
                 {
@@ -55,6 +55,6 @@ export default function AxiosGet() {
                     ))
                 }
             </ul>
-        </div>
+        </>
     )
 }

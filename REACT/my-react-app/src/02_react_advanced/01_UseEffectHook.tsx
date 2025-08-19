@@ -58,10 +58,10 @@ export default function UseEffectHook() {
     }, [count]);
 
     return (
-        <div>
+        <>
             <h1>UseEffect</h1>
             <h2>count: {count}</h2>
             <button type="button" onClick={() => setCount(count + 1)}>+</button>
-        </div>
+        </>
     )
 }
