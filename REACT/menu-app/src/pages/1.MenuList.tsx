@@ -3,6 +3,8 @@ import {type Menu} from "../types/menu";
 import { loadMenus } from "../api/menuApi";
 import RadioGroup from "../components/RadioGroup";
 import useInput from "../hooks/useInput";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuList() {
     const [menus, setMenus] = useState<Menu[]>([]);
@@ -10,6 +12,9 @@ export default function MenuList() {
         type: "all",
         taste: "all"
     });
+    const navigate = useNavigate();
+
+    const baseUrl = "http://localhost:8081/api";
 
     // #1. 게시글 불러오기
     // - useEffect를 활용하여 컴포넌트가 마운트 될 때 1번만 로드되도록 설정.
@@ -32,6 +37,22 @@ export default function MenuList() {
             console.log(err);
             alert("검색 결과가 없습니다.");
         });
+    };
+
+    const handleDelete = (id:number) => {
+        const bool = confirm("정말 삭제하시겠습니까?");
+
+        if (bool) {
+            axios.delete(baseUrl + "/menus/" + id).then(res => alert("삭제 성공.")).catch(err => {
+                console.log(err);
+                alert("삭제 실패.");
+            });
+    
+            loadMenus({type:"all", taste:"all"}).then(res => setMenus(res.data)).catch(err => {
+                console.log(err);
+                alert("검색 결과가 없습니다.");
+            });
+        }
     };
 
     return (
@@ -67,14 +88,23 @@ export default function MenuList() {
                     <tbody>
                         {
                             menus && menus.map((menu) => (
-                                <tr key={menu.id}>
+                                <tr key={menu.id} onClick={() => navigate(`/menus/${menu.id}`)} style={{cursor:'pointer'}}>
                                     <td>{menu.id}</td>
                                     <td>{menu.restaurant}</td>
                                     <td>{menu.name}</td>
                                     <td>{menu.price}</td>
                                     <td>{menu.type}</td>
                                     <td>{menu.taste}</td>
-                                    <td><button type="button"></button></td>
+                                    <td>
+                                        <button type="button" onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/menus/${menu.id}/edit`);
+                                            }}>수정</button>
+                                        <button type="button" onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDelete(menu.id);
+                                            }}>삭제</button>
+                                    </td>
                                 </tr>
                             ))
                         }
