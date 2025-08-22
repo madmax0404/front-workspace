@@ -10,3 +10,13 @@ export const loadMenus = async function(searchKeyword:{type?:string, taste?:stri
     // const response = await api.get("/menus");
     return api.get<Menu[]>("/menus", {params: searchKeyword});
 };
+
+export const searchMenus = async function(searchKeyword:{type:string, taste:string}) {
+    const response = await api.get<Menu[]>("/menus", {
+        params: {
+            ...searchKeyword
+        }
+    });
+
+    return response.data;
+};

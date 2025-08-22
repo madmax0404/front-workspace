@@ -16,23 +16,34 @@ import TestApp from './test1/TestApp';
 import Header from './02_react_advanced/05_Router'
 import NestedRoute from './02_react_advanced/06_Nested_Route';
 import { UserDetail, UserList, VariableRoute } from './02_react_advanced/07_Variable_Route';
+import ContextApi from './03_global_state/1.context/Context';
+import Counter from './03_global_state/2.Redux/pages/Counter';
+import { useSelector } from 'react-redux';
+import type { RootState } from './03_global_state/2.Redux/store/store';
+import TodoList from './03_global_state/2.Redux/pages/ToDoList';
 
 function App() {
+    const counter = useSelector((state:RootState) => state.counter);
+
     return (
         <>
             <Header />
+            현재 counter: {counter.value}
             <Routes>
                 <Route path='/' element={<div>메인 페이지</div>} />
                 <Route path='/useEffect' element={<UseEffectHook />} />
                 <Route path='/optimize' element={<OptimizationHook />} />
-                <Route path='/nested' element={<NestedRoute/>}>
-                    <Route path='get' element={<AxiosGet/>} />
-                    <Route path='post' element={<AxiosPost/>} />
+                <Route path='/nested' element={<NestedRoute />}>
+                    <Route path='get' element={<AxiosGet />} />
+                    <Route path='post' element={<AxiosPost />} />
                 </Route>
-                <Route path='/variable-route' element={<VariableRoute/>}>
-                    <Route path='user/:id/:name' element={<UserDetail/>} />
-                    <Route path='' element={<UserList/>} />
+                <Route path='/variable-route' element={<VariableRoute />}>
+                    <Route path='user/:id/:name' element={<UserDetail />} />
+                    <Route path='' element={<UserList />} />
                 </Route>
+                <Route path='/context' element={<ContextApi />} />
+                <Route path="/counter" element={<Counter/>} />
+                <Route path='/redux' element={<TodoList/>} />
 
 
                 <Route path='*' element={
@@ -67,6 +78,15 @@ function App() {
                 </li>
                 <li>
                     <Link to={"/variable-route"}>Variable Route</Link>
+                </li>
+                <li>
+                    <Link to={"/context"}>Context</Link>
+                </li>
+                <li>
+                    <Link to="/counter">Counter</Link>
+                </li>
+                <li>
+                    <Link to="/redux">Redux</Link>
                 </li>
             </nav>
         </>

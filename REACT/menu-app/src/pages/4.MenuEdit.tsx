@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import RadioGroup from "../components/RadioGroup";
 import useInput from "../hooks/useInput";
 import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { initMenu, type Menu, type MenuUpdate } from "../types/menu";
 import axios from "axios";
 
@@ -43,33 +43,61 @@ const MenuEdit = () => {
         }
     }, [data]);
 
-    
-    if (isLoading) return <div>Loading 중...</div>
-    if (isError) {
-        navigate("/menus", {state:{flash:"존재하지 않는 메뉴입니다."}});
-        return;
-    }
-
     const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationFn: (newMenu:MenuUpdate) => axios.put("http://localhost:8081/api/menus/"+id, newMenu),
+        onSuccess: (res) => {
+            // 등록 요청 성공시
+            queryClient.invalidateQueries({queryKey:['menu', id]}); // 메뉴 목록 데이터 캐시 무효화.
+            queryClient.invalidateQueries({queryKey:['menus']});
+
+            // 리디렉션(서버에서 location을 지정해 주었으면 해당 경로로, 아니면 목록으로 이동)
+            const loc = res.headers['location'];
+            console.log(loc);
+            navigate(loc ?? "/menus/" + id, {
+                state: {flash: "메뉴가 수정되었습니다."}
+            });
+        },
+        onError: err => {
+            console.log(err);
+            alert("수정 실패.");
+        }
+    });
 
     const handleSubmit = (e:React.FormEvent) => {
         e.preventDefault();
 
         let bool = confirm("정말 수정하시겠습니까?");
         if (bool) {
-            axios.put("http://localhost:8081/api/menus/"+id, newMenu)
-            .then(res => {
-                console.log(res);
-                queryClient.invalidateQueries({queryKey:['menu', id]});
-                alert("수정 성공");
-                navigate("/menus");
-            })
-            .catch(err => {
-                console.log(err);
-                alert("수정 실패");
-            });            
+            if (newMenu.name == "" || newMenu.restaurant == "") {
+                alert("식당명, 메뉴명을 입력해야 합니다.");
+                return;
+            }
+
+            if (newMenu.price && newMenu.price < 0) {
+                alert("가격은 0원 이상이어야 합니다.");
+                return;
+            }
+            
+            mutation.mutate(newMenu);
         }        
     };
+
+    if (isLoading) return <div>Loading 중...</div>
+    if (isError) {
+        navigate("/menus", {state:{flash:"존재하지 않는 메뉴입니다."}});
+        return;
+    }
+
+    if (mutation.isPending) {
+        return <div>Loading 중...</div>
+    }
+
+    if (mutation.isError) {
+        navigate("/menus", {state:{flash:"존재하지 않는 메뉴입니다."}});
+        return;
+    }
 
     return (
         <>
@@ -89,7 +117,7 @@ const MenuEdit = () => {
                         <RadioGroup id="get-mild" value="mild" name="taste" checked={newMenu.taste == "mild"} onChange={handleInputChange} label="순한맛" />
                     </div>
                     <br />
-                    <input type="submit" className="btn btn-block btn-outline-success btn-send" value="수정" />
+                    <input type="submit" className="btn btn-block btn-outline-success btn-send" value="수정" disabled={mutation.isPending} />
                 </form>
             </div>
         </>

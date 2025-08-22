@@ -5,6 +5,7 @@ import MenuList from './pages/1.MenuList'
 import MenuInsert from './pages/3.MenuInsert'
 import MenuDetail from './pages/2.MenuDetail'
 import MenuEdit from './pages/4.MenuEdit'
+import Login from './pages/login/Login'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                                 </>
                                 } />
                         </Route>
+                        <Route path="/login" element={<Login/>} />
                     </Routes>
                 </div>
             </section>

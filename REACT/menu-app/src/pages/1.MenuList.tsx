@@ -1,59 +1,97 @@
 import { useEffect, useState } from "react";
 import {type Menu} from "../types/menu";
-import { loadMenus } from "../api/menuApi";
+import { loadMenus, searchMenus } from "../api/menuApi";
 import RadioGroup from "../components/RadioGroup";
 import useInput from "../hooks/useInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function MenuList() {
-    const [menus, setMenus] = useState<Menu[]>([]);
+    // const [menus, setMenus] = useState<Menu[]>([]);
+    // const [newMenus, ]
     const [searchKeyword, onChangeKeyword] = useInput({
         type: "all",
         taste: "all"
     });
+
+    const [submittedKeyword, setSubmittedKeyword] = useState({
+        type: "all",
+        taste: "all"
+    });
+
     const navigate = useNavigate();
 
     const baseUrl = "http://localhost:8081/api";
 
     // #1. 게시글 불러오기
     // - useEffect를 활용하여 컴포넌트가 마운트 될 때 1번만 로드되도록 설정.
-    useEffect(() => {
-        /**
-         * #2. CORS(Cross-Origin Resource Sharing) 설정
-         * - 브라우저는 보안상 SOP 정책을 사용한다.
-         * - SOP 동일한 출처(Origin)에서만 리소스 요청을 허용하는 정책.
-         * - 출처(Origin): 프로토콜+ip+포트번호.
-         * - 이 때 요청을 받는 서버측에서 현재 출처에 대한 요청을 허용하도록 CrossOrigin 속성을 추가해줘야 한다.
-         */
-        loadMenus(searchKeyword).then(res => setMenus(res.data)).catch(err => {
-            console.log(err);
-            alert("검색 결과가 없습니다.");
-        });
-    }, []);
+    // useEffect(() => {
+    //     /**
+    //      * #2. CORS(Cross-Origin Resource Sharing) 설정
+    //      * - 브라우저는 보안상 SOP 정책을 사용한다.
+    //      * - SOP 동일한 출처(Origin)에서만 리소스 요청을 허용하는 정책.
+    //      * - 출처(Origin): 프로토콜+ip+포트번호.
+    //      * - 이 때 요청을 받는 서버측에서 현재 출처에 대한 요청을 허용하도록 CrossOrigin 속성을 추가해줘야 한다.
+    //      */
+    //     loadMenus(searchKeyword).then(res => setMenus(res.data)).catch(err => {
+    //         console.log(err);
+    //         alert("검색 결과가 없습니다.");
+    //     });
+    // }, []);
+
+    const {data:menus, isLoading, isError, error} = useQuery<Menu[]>({
+        queryKey: ['menus', submittedKeyword],
+        queryFn: () => searchMenus(submittedKeyword),
+        staleTime: 1000 * 60,
+        gcTime: 1000 * 60 * 5,
+        enabled: true
+    });
 
     const searchClick = () => {
-        loadMenus(searchKeyword).then(res => setMenus(res.data)).catch(err => {
-            console.log(err);
-            alert("검색 결과가 없습니다.");
-        });
+        // loadMenus(searchKeyword).then(res => setMenus(res.data)).catch(err => {
+        //     console.log(err);
+        //     alert("검색 결과가 없습니다.");
+        // });
+        setSubmittedKeyword(searchKeyword);
     };
+
+    const queryClient = useQueryClient();
+    const deleteMenuMutation = useMutation({
+        mutationFn: (id:number) => axios.delete(baseUrl + `/menus/${id}`),
+        onSuccess: (res) => {
+            // 등록 요청 성공시
+            queryClient.invalidateQueries({queryKey:['menus', submittedKeyword]});
+
+            // 리디렉션(서버에서 location을 지정해 주었으면 해당 경로로, 아니면 목록으로 이동)
+            navigate("/menus", {state: {flash: "메뉴가 삭제되었습니다."}});
+        },
+        onError: err => {
+            console.log(err);
+            alert("삭제 실패.");
+        }
+    });
 
     const handleDelete = (id:number) => {
         const bool = confirm("정말 삭제하시겠습니까?");
 
         if (bool) {
-            axios.delete(baseUrl + "/menus/" + id).then(res => alert("삭제 성공.")).catch(err => {
-                console.log(err);
-                alert("삭제 실패.");
-            });
+            deleteMenuMutation.mutate(id);
+
+            // axios.delete(baseUrl + "/menus/" + id).then(res => alert("삭제 성공.")).catch(err => {
+            //     console.log(err);
+            //     alert("삭제 실패.");
+            // });
     
-            loadMenus({type:"all", taste:"all"}).then(res => setMenus(res.data)).catch(err => {
-                console.log(err);
-                alert("검색 결과가 없습니다.");
-            });
+            // loadMenus({type:"all", taste:"all"}).then(res => setMenus(res.data)).catch(err => {
+            //     console.log(err);
+            //     alert("검색 결과가 없습니다.");
+            // });
         }
     };
+
+    if (isLoading) return <div>Loading...</div>
+    if (isError) return <div className="alert alert-danger">{error.message}</div>
 
     return (
         <>
