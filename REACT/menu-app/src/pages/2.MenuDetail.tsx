@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { initMenu, type Menu } from "../types/menu"
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { getMenu } from "../api/menuApi";
 
 export default function MenuDetail() {
     // const [menu, setMenu] = useState(initMenu);
@@ -11,7 +11,6 @@ export default function MenuDetail() {
     // const location = useLocation();
     // const id = location.pathname.split("/")[2];
     const { id } = useParams();
-    const baseUrl = "http://localhost:8081/api/menus";
 
     // useEffect(() => {
     //     setIsLoading(true);
@@ -66,7 +65,7 @@ export default function MenuDetail() {
      */
     const {data:menu, isLoading, isError, error} = useQuery<Menu>({
         queryKey: ['menu', id], // 캐시 구분용 키
-        queryFn: () => axios.get(baseUrl + "/" + id).then(res => res.data),
+        queryFn: () => getMenu(Number(id)),
         staleTime: 1000 * 60, // fresh 유지 시간
         gcTime: 1000 * 60 * 5, // 캐시 메모리 저장 시간.
         enabled: true // 초기 실행 여부

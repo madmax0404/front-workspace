@@ -4,7 +4,7 @@ import useInput from "../hooks/useInput";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { initMenu, type Menu, type MenuUpdate } from "../types/menu";
-import axios from "axios";
+import { getMenu, updateMenu as updateMenuApi } from "../api/menuApi";
 
 const MenuEdit = () => {
     // #1. 메뉴 수정 기능 구현   
@@ -24,12 +24,11 @@ const MenuEdit = () => {
     // 9. 수정 실패시 에러 메세지를 출력한다.
     //    - <div className="alert alert-danger">에러메세지</div>
     const {id} = useParams();
-    const baseUrl = "http://localhost:8081/api/menus";
     const navigate = useNavigate();
 
     const {data, isLoading, isError, error} = useQuery<Menu>({
         queryKey: ['menu', id], // 캐시 구분용 키
-        queryFn: () => axios.get(baseUrl + "/" + id).then(res => res.data),
+        queryFn: () => getMenu(Number(id)),
         staleTime: 1000 * 60, // fresh 유지 시간
         gcTime: 1000 * 60 * 5, // 캐시 메모리 저장 시간.
         enabled: true // 초기 실행 여부
@@ -46,7 +45,7 @@ const MenuEdit = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: (newMenu:MenuUpdate) => axios.put("http://localhost:8081/api/menus/"+id, newMenu),
+        mutationFn: (newMenu:MenuUpdate) => updateMenuApi(Number(id), newMenu),
         onSuccess: (res) => {
             // 등록 요청 성공시
             queryClient.invalidateQueries({queryKey:['menu', id]}); // 메뉴 목록 데이터 캐시 무효화.

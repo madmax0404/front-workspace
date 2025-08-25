@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {type Menu} from "../types/menu";
-import { loadMenus, searchMenus } from "../api/menuApi";
+import { deleteMenu, loadMenus, searchMenus } from "../api/menuApi";
 import RadioGroup from "../components/RadioGroup";
 import useInput from "../hooks/useInput";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -21,8 +20,6 @@ export default function MenuList() {
     });
 
     const navigate = useNavigate();
-
-    const baseUrl = "http://localhost:8081/api";
 
     // #1. 게시글 불러오기
     // - useEffect를 활용하여 컴포넌트가 마운트 될 때 1번만 로드되도록 설정.
@@ -49,16 +46,12 @@ export default function MenuList() {
     });
 
     const searchClick = () => {
-        // loadMenus(searchKeyword).then(res => setMenus(res.data)).catch(err => {
-        //     console.log(err);
-        //     alert("검색 결과가 없습니다.");
-        // });
         setSubmittedKeyword(searchKeyword);
     };
 
     const queryClient = useQueryClient();
     const deleteMenuMutation = useMutation({
-        mutationFn: (id:number) => axios.delete(baseUrl + `/menus/${id}`),
+        mutationFn: (id:number) => deleteMenu(id),
         onSuccess: (res) => {
             // 등록 요청 성공시
             queryClient.invalidateQueries({queryKey:['menus', submittedKeyword]});
@@ -77,16 +70,6 @@ export default function MenuList() {
 
         if (bool) {
             deleteMenuMutation.mutate(id);
-
-            // axios.delete(baseUrl + "/menus/" + id).then(res => alert("삭제 성공.")).catch(err => {
-            //     console.log(err);
-            //     alert("삭제 실패.");
-            // });
-    
-            // loadMenus({type:"all", taste:"all"}).then(res => setMenus(res.data)).catch(err => {
-            //     console.log(err);
-            //     alert("검색 결과가 없습니다.");
-            // });
         }
     };
 
