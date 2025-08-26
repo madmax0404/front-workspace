@@ -7,8 +7,25 @@ import MenuDetail from './pages/2.MenuDetail'
 import MenuEdit from './pages/4.MenuEdit'
 import Login from './pages/login/Login'
 import ProtectedRoute from './components/ProtectedRoute'
+import { useEffect } from 'react'
+import { api } from './api/menuApi'
+import { useDispatch } from 'react-redux'
+import { loginSuccess, logout } from './features/authSlice'
+import OAuth2Success from './pages/login/OAuth2Success'
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        api.post("/auth/refresh")
+        .then(res => {
+            dispatch(loginSuccess(res.data));
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(logout());
+        })
+    }, []);
 
     return (
         <div id="container">
@@ -41,6 +58,7 @@ function App() {
                         </Route>
                         <Route path="/login" element={<Login/>} />
                         <Route path="/unauthorized" element={<div>권한이 없습니다.</div>} />
+                        <Route path="/oauth2/success" element={<OAuth2Success/>} />
                     </Routes>
                 </div>
             </section>

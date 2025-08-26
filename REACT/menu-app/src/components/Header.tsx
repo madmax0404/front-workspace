@@ -1,6 +1,9 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import type { RootState } from "../store/store";
+import { logout } from "../features/authSlice";
+import { api } from "../api/menuApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 /**
  * #components
@@ -9,9 +12,19 @@ import type { RootState } from "../store/store";
  */
 export default function Header() {
     const auth = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const handleLogout = () => {
-
+        api.post("/auth/logout")
+        .then(() => {
+            dispatch(logout());
+            navigate("/");
+        }).catch(err => {
+            console.log(err);
+        });
+        queryClient.removeQueries();
     };
 
     return (

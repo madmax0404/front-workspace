@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../features/authSlice";
+import { api } from "../../api/menuApi";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        axios.post(path + "/login", {email, password})
+        api.post(path + "/login", {email, password})
         .then(res => {
             console.log(res);
             /**
@@ -74,7 +75,7 @@ export default function Login() {
                     return;
                 }
 
-                axios.post(path + "/signup", {email, password})
+                api.post(path + "/signup", {email, password})
                 .then(res => {
                     console.log(res);
                     dispatch(loginSuccess(res.data));
@@ -96,6 +97,8 @@ export default function Login() {
     };
     // 소셜 로그인은 백엔드 OAuth 엔드포인트로 리다이렉트
     const handleKakaoLogin = () => {
+        // 카카오 인증서버 경로
+        location.href = "http://localhost:8081/api/oauth2/authorization/kakao";
     };
     const handleNaverLogin = () => {
     };
